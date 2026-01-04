@@ -107,6 +107,129 @@ body {
   transform: scale(6);
   opacity: 1;
 }
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap');
+
+:root{
+  --red:#ff1a1a;
+}
+
+body{
+  margin:0;
+  background:#000;
+  font-family:'Cinzel',serif;
+  overflow-x:hidden;
+}
+
+/* NAVBAR */
+.st-navbar{
+  position:fixed; top:0; width:100%; height:60px;
+  display:flex; justify-content:center; align-items:center;
+  background:rgba(0,0,0,.78);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  z-index:1000;
+}
+
+/* MENU */
+.st-menu{list-style:none; display:flex; gap:44px; padding:0; margin:0;}
+.st-menu li{
+  color:#cfcfcf; font-size:13px; letter-spacing:2px; cursor:pointer;
+  transition: color 1.4s ease, letter-spacing 1.4s ease, text-shadow 1.4s ease, transform 1.4s ease;
+}
+
+/* BASE HOVER */
+.st-menu li:hover{
+  color:var(--red);
+  letter-spacing:6px;
+  text-shadow:0 0 14px rgba(255,26,26,.65);
+}
+
+/* RIFT — letters drift apart */
+.st-menu li[data-type="rift"]:hover{
+  animation:riftDrift 2.6s ease-in-out infinite;
+}
+@keyframes riftDrift{
+  0%{letter-spacing:2px}
+  50%{letter-spacing:10px}
+  100%{letter-spacing:2px}
+}
+
+/* WORMHOLE — space bend + slow pulse */
+.st-menu li[data-type="wormhole"]:hover{
+  animation:wormholeBend 3.2s ease-in-out infinite;
+}
+@keyframes wormholeBend{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.22) rotate(.8deg)}
+  100%{transform:scale(1)}
+}
+
+/* SUBJECT 011 — psychic surge */
+.st-menu li[data-type="eleven"]:hover{
+  animation:psiPulse 2.4s ease-in-out infinite;
+}
+@keyframes psiPulse{
+  0%{text-shadow:0 0 6px var(--red)}
+  50%{text-shadow:0 0 28px var(--red)}
+  100%{text-shadow:0 0 6px var(--red)}
+}
+
+/* GATE — unstable shake (subtle) */
+.st-menu li[data-type="gate"]:hover{
+  animation:gateQuake .7s ease-in-out infinite;
+}
+@keyframes gateQuake{
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-1px)}
+  50%{transform:translateX(1px)}
+  75%{transform:translateX(-1px)}
+  100%{transform:translateX(0)}
+}
+
+/* UPSIDE DOWN — gravity flip preview */
+.st-menu li[data-type="upside"]:hover{
+  transform:rotateX(180deg);
+  filter:invert(1);
+}
+
+/* FULLSCREEN FX OVERLAY */
+.fx-overlay{
+  position:fixed; inset:0; z-index:999;
+  background:
+    radial-gradient(circle at center, rgba(255,0,0,.9) 0%, rgba(0,0,0,.9) 65%),
+    linear-gradient(180deg, rgba(255,0,0,.15), transparent 60%);
+  transform:scale(0);
+  opacity:0;
+  filter:blur(0px);
+  transition: transform 3.2s ease, opacity 3.2s ease, filter 3.2s ease;
+}
+
+/* ACTIVE PORTAL */
+.fx-overlay.active{
+  transform:scale(7);
+  opacity:1;
+  filter:blur(2px);
+}
+
+/* AFTERSHOCK */
+.fx-overlay.aftershock{
+  animation:aftershock .45s ease;
+}
+@keyframes aftershock{
+  0%{transform:scale(7)}
+  50%{transform:scale(7.15)}
+  100%{transform:scale(7)}
+}
+
+/* UPSIDE DOWN SCREEN FLIP */
+body.flip{
+  animation:flipGravity .4s ease;
+}
+@keyframes flipGravity{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+  100%{transform:translateY(0)}
+}
 
 .portal-orb {
   width: 28px;

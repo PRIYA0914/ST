@@ -1,0 +1,149 @@
+/* 🩸 DRIPPING TEXT */
+.drip-text {
+  display: flex;
+  gap: 2px;
+}
+
+.drip-text span {
+  position: relative;
+  color: #e50914;
+  font-weight: bold;
+  animation: drip 3s infinite ease-in-out;
+  text-shadow: 0 0 12px crimson;
+}
+
+/* BLOOD DROP */
+.drip-text span::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 3px;
+  height: 0;
+  background: crimson;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  animation: drop 3s infinite ease-in-out;
+}
+
+/* LETTER FLOAT */
+@keyframes drip {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+/* DRIP FALL */
+@keyframes drop {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  30% {
+    height: 14px;
+    opacity: 1;
+  }
+  70% {
+    height: 28px;
+    opacity: 1;
+  }
+  100% {
+    height: 0;
+    opacity: 0;
+  }
+}
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+
+body {
+  margin: 0;
+  background: #000;
+  overflow-x: hidden;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
+  z-index: 100;
+  transition: background 0.6s ease;
+}
+
+/* MODES */
+.navbar.normal {
+  background: #ffffff;
+  color: #8b0000;
+}
+
+.navbar.upside {
+  background: #0a0a0a;
+  color: #e50914;
+}
+
+/* ITEMS */
+.nav-item {
+  cursor: pointer;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+/* RIFT */
+.nav-item.rift::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: red;
+  animation: crack 0.8s infinite alternate;
+}
+
+@keyframes crack {
+  from {
+    transform: scaleX(0.8);
+    opacity: 0.4;
+  }
+  to {
+    transform: scaleX(1.1);
+    opacity: 1;
+  }
+}
+
+/* PORTAL */
+.portal {
+  font-weight: bold;
+  color: #e50914;
+  text-shadow: 0 0 10px red;
+}
+
+/* ELEVEN */
+.eleven {
+  animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1 }
+  50% { opacity: 0.6 }
+}
+
+/* UPSIDE DOWN */
+.upside {
+  text-shadow: 0 0 15px crimson;
+}
+
+/* PORTAL OVERLAY */
+.portal-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, red 0%, black 70%);
+  z-index: 999;
+  pointer-events: none;
+}
