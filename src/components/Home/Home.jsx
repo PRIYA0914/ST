@@ -11,6 +11,7 @@ function Home() {
   const [shake, setShake] = useState(false);
   const [crackPos, setCrackPos] = useState({ x: 0, y: 0 });
   const [showNavbar, setShowNavbar] = useState(false);
+  const [entering, setEntering] = useState(false);
 
   const handleEnter = (e) => {
     // Mouse position relative to viewport
@@ -23,6 +24,7 @@ function Home() {
     audio.volume = 0.5;
     audio.play();
 
+    setEntering(true);
     setCrackOpen(true);
 
     setTimeout(() => {
@@ -32,6 +34,7 @@ function Home() {
 
     setTimeout(() => {
       setShowNavbar(true);
+      setEntering(false);
       // Optionally call onEnter();
     }, 3000);
   };
@@ -52,16 +55,9 @@ function Home() {
   //   }, 2200);
   // };
 
-  // Only use the gradient for the background, no image
-  const homeBg = {
-    background: "linear-gradient(120deg, #ff1a1a44 0%, #000 100%)",
-    backgroundSize: "cover",
-    backgroundBlendMode: "lighten, screen",
-    opacity: 1,
-  };
-
   return (
-    <div className="home" style={homeBg}>
+    <div className={`home${entering ? " entering" : ""}`}>
+      {entering && <div className="red-transition" />}
       <div className="mist" />
       {showNavbar ? (
         <>

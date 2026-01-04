@@ -1,5 +1,35 @@
+/* Red transition overlay for Upside Down entry */
+.red-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  background: radial-gradient(circle at center, #ff1a1a 0%, #b80000 60%, #000 100%);
+  opacity: 0;
+  transform: scale(0.2);
+  animation: redTransitionOpen 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes redTransitionOpen {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+    filter: blur(40px);
+  }
+  60% {
+    opacity: 0.95;
+    transform: scale(1.08);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+    filter: blur(0);
+  }
+}
 /* Hawkins background with red-tinted, low-opacity image */
  .home {
+    transition: background 1.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   min-height: 100vh;
   background: linear-gradient(120deg, #ff1a1a44 0%, #000 100%);
@@ -230,7 +260,9 @@
   position: relative;
   height: 100vh;
   width: 100%;
-  background: radial-gradient(circle at center, #180000, #000);
+  background: linear-gradient(120deg, #ff1a1a44 0%, #000 100%), url("../../assets/hawkins-bg.jpg") center center/cover no-repeat;
+  background-blend-mode: multiply, screen;
+  opacity: 1;
   overflow: hidden;
   font-family: "Montserrat", sans-serif;
 }
