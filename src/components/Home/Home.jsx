@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Particles from "react-tsparticles";
 import particlesConfig from "./particlesConfig";
-import Menu from "./Menu";
 import Portal from "./Portal";
+import PortalNavbar from "./PortalNavbar";
 import "./Home.css";
 
 export default function Home({ onEnter }) {
@@ -51,11 +51,11 @@ export default function Home({ onEnter }) {
 
   return (
     <div className="home">
+      <PortalNavbar onPortalClick={() => {}} />
       <div id="gravityLayer">
         <div id="shakeLayer" className={shake ? "shake" : ""}>
           <Particles options={particlesConfig} className="particles" />
           <div className="texture" />
-          <Menu />
 
           <div className="content">
             <h1 className="main-title">STRANGER THINGS</h1>
