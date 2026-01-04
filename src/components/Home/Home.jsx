@@ -8,29 +8,33 @@ import "./Home.css";
 export default function Home({ onEnter }) {
   const [crackOpen, setCrackOpen] = useState(false);
   const [shake, setShake] = useState(false);
+  const [crackPos, setCrackPos] = useState({ x: 0, y: 0 });
 
-  const handleEnter = () => {
+  const handleEnter = (e) => {
+    // Mouse position relative to viewport
+    setCrackPos({
+      x: e.clientX,
+      y: e.clientY,
+    });
+
     const audio = new Audio("/sounds/portal.mp3");
     audio.volume = 0.5;
     audio.play();
 
-    // start crack
     setCrackOpen(true);
 
-    // camera shake shortly after crack starts
     setTimeout(() => {
       setShake(true);
       setTimeout(() => setShake(false), 600);
-    }, 500);
+    }, 400);
 
-    // navigate after full opening
     setTimeout(() => {
       onEnter();
-    }, 2800);
+    }, 3000);
   };
 
   return (
-    <div className={`home${shake ? " shake" : ""}`}>
+    <div className={`home ${shake ? "shake" : ""}`}>
       <Particles options={particlesConfig} className="particles" />
       <div className="texture" />
       <Menu />
@@ -42,8 +46,7 @@ export default function Home({ onEnter }) {
         </button>
       </div>
 
-      {/* ✅ Portal ONLY renders after click */}
-      {crackOpen && <Portal open />}
+      {crackOpen && <Portal x={crackPos.x} y={crackPos.y} />}
     </div>
   );
 }

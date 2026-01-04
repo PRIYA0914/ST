@@ -1,33 +1,57 @@
-export default function Portal({ open }) {
+export default function Portal({ x, y }) {
   return (
-    <div className={`portal-container ${open ? "open" : ""}`}>
+    <div
+      className="portal-container open"
+      style={{
+        left: x,
+        top: y,
+      }}
+    >
       <svg
         className="crack-svg"
-        viewBox="0 0 200 500"
+        viewBox="0 0 300 600"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {/* MAIN CRACK LEFT */}
+        {/* CORE FRACTURE */}
         <path
-          d="M100 0 L90 60 L105 120 L85 180 L110 240 L80 300 L100 360 L90 420 L100 500"
-          className="crack crack-left"
+          d="
+            M150 0
+            L130 70
+            L165 140
+            L120 220
+            L180 300
+            L110 380
+            L190 460
+            L150 600
+          "
+          className="crack-core"
         />
 
-        {/* MAIN CRACK RIGHT */}
+        {/* INNER GLOW */}
         <path
-          d="M100 0 L110 60 L95 120 L115 180 L90 240 L120 300 L100 360 L110 420 L100 500"
-          className="crack crack-right"
+          d="
+            M150 0
+            L135 70
+            L160 140
+            L130 220
+            L170 300
+            L125 380
+            L175 460
+            L150 600
+          "
+          className="crack-glow"
         />
 
         {/* BRANCHES */}
-        <path d="M95 140 L50 110" className="branch" />
-        <path d="M105 180 L160 150" className="branch" />
-        <path d="M90 260 L40 300" className="branch" />
-        <path d="M110 320 L165 360" className="branch" />
-        <path d="M100 420 L60 460" className="branch" />
+        <path d="M150 160 L60 120" className="crack-branch" />
+        <path d="M150 200 L230 170" className="crack-branch" />
+        <path d="M140 280 L70 320" className="crack-branch" />
+        <path d="M160 360 L240 400" className="crack-branch" />
+        <path d="M150 440 L90 520" className="crack-branch" />
       </svg>
 
-      {/* ENERGY CORE */}
-      <div className="portal-energy" />
+      {/* LAVA CORE */}
+      <div className="lava-core" />
     </div>
   );
 }

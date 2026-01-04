@@ -1,3 +1,103 @@
+/* =====================
+   PORTAL POSITIONING
+===================== */
+.portal-container {
+  position: fixed;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  pointer-events: none;
+  opacity: 1;
+}
+
+/* =====================
+   SVG CRACK
+===================== */
+.crack-svg {
+  width: 220px;
+  height: 520px;
+  overflow: visible;
+  animation: crackGrow 2.4s forwards;
+}
+
+/* CORE FRACTURE */
+.crack-core {
+  fill: none;
+  stroke: #330000;
+  stroke-width: 10;
+  filter: drop-shadow(0 0 10px black);
+}
+
+/* INNER GLOW */
+.crack-glow {
+  fill: none;
+  stroke: #ff2a00;
+  stroke-width: 4;
+  filter: blur(4px);
+  animation: glowPulse 0.2s infinite;
+}
+
+/* BRANCHES */
+.crack-branch {
+  fill: none;
+  stroke: #ff4500;
+  stroke-width: 2;
+  opacity: 0;
+  filter: blur(1px);
+  animation: branchGrow 1.2s forwards;
+  animation-delay: 0.5s;
+}
+
+/* =====================
+   LAVA CORE
+===================== */
+.lava-core {
+  position: absolute;
+  width: 10px;
+  height: 400px;
+  background: linear-gradient(
+    to bottom,
+    #ff0000,
+    #ff6a00,
+    #ff0000
+  );
+  filter: blur(18px);
+  animation: lavaExpand 2.4s forwards;
+}
+
+/* =====================
+   ANIMATIONS
+===================== */
+@keyframes crackGrow {
+  from {
+    transform: scaleY(0.05);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes glowPulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+@keyframes branchGrow {
+  to { opacity: 1; }
+}
+
+@keyframes lavaExpand {
+  from {
+    width: 6px;
+    opacity: 0.2;
+  }
+  to {
+    width: 140px;
+    opacity: 1;
+  }
+}
 /* =========================
    BRANCHING LIGHTNING
 ========================= */
