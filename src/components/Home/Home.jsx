@@ -2,7 +2,7 @@ import { useState } from "react";
 import Particles from "react-tsparticles";
 import particlesConfig from "./particlesConfig";
 import Portal from "./Portal";
-import AlphabetWall from "../AlphabetWall/AlphabetWall";
+
 import WormholeNavbar from "./WormholeNavbar";
 import "./Home.css";
 
@@ -52,12 +52,20 @@ function Home() {
   //   }, 2200);
   // };
 
+  // Only use the gradient for the background, no image
+  const homeBg = {
+    background: "linear-gradient(120deg, #ff1a1a44 0%, #000 100%)",
+    backgroundSize: "cover",
+    backgroundBlendMode: "lighten, screen",
+    opacity: 1,
+  };
+
   return (
-    <div className="home">
+    <div className="home" style={homeBg}>
+      <div className="mist" />
       {showNavbar ? (
         <>
           <WormholeNavbar />
-          <AlphabetWall />
         </>
       ) : (
         <div id="gravityLayer">

@@ -1,11 +1,7 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { motion } from "framer-motion";
 import "./wormholeNavbar.css";
-import AlphabetWall from "../AlphabetWall/AlphabetWall";
 
 export default function WormholeNavbar() {
-  const [showWall, setShowWall] = useState(false);
-
   return (
     <>
       {/* NAVBAR (STAYS STILL) */}
@@ -13,8 +9,6 @@ export default function WormholeNavbar() {
         <ul className="st-menu">
           <motion.li
             className="nav-item hawkins"
-            onHoverStart={() => setShowWall(true)}
-            onHoverEnd={() => setShowWall(false)}
             whileHover={{
               color: "#ff1a1a",
               letterSpacing: "6px",
@@ -23,7 +17,6 @@ export default function WormholeNavbar() {
           >
             HAWKINS
           </motion.li>
-
           <NavItem text="THE RIFT" />
           <NavItem text="WORMHOLE" />
           <NavItem text="SUBJECT 011" />
@@ -31,9 +24,6 @@ export default function WormholeNavbar() {
           <NavItem text="UPSIDE DOWN" />
         </ul>
       </nav>
-
-      {/* ALPHABET WALL */}
-      <AnimatePresence>{showWall && <AlphabetWall />}</AnimatePresence>
     </>
   );
 }

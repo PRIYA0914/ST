@@ -1,32 +1,29 @@
 import "./AlphabetWall.css";
 
-const letters = [
-  ["R", "B", "C", "D", "E", "F"],
-  ["G", "U", "I", "J", "K", "L"],
-  ["M", "A", "N", "P", "Q", "O"],
-  ["S", "T", "H", "V", "W", "X"],
-  ["Y", "Z", null, null, null, null],
-];
-
-export default function AlphabetWall({ activeLetters = [] }) {
+export default function AlphabetWall() {
   return (
-    <div className="alphabet-wall">
-      {letters.map((row, rowIdx) =>
-        row.map((char, colIdx) => {
-          if (!char) return null;
-          return (
-            <div key={rowIdx + "-" + colIdx} className="letter-wrap">
-              <span
-                className={`st-letter${
-                  activeLetters.includes(char) ? " active" : ""
-                }`}
-              >
-                {char}
-              </span>
-            </div>
-          );
-        })
-      )}
+    <div className="st-wall">
+      {/* Example content: you can replace this with your actual wall letters */}
+      <div className="st-cell" style={{ top: 60, left: 60 }}>
+        A
+      </div>
+      <div className="st-cell" style={{ top: 60, left: 140 }}>
+        B
+      </div>
+      <div className="st-cell" style={{ top: 60, left: 220 }}>
+        C
+      </div>
+      <div className="st-cell" style={{ top: 140, left: 60 }}>
+        D
+      </div>
+      <div className="st-cell" style={{ top: 140, left: 140 }}>
+        E
+      </div>
+      <div className="st-cell" style={{ top: 140, left: 220 }}>
+        F
+      </div>
+      {/* Add more .st-cell divs as needed for your wall */}
     </div>
   );
 }
+// Removed by user request

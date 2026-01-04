@@ -1,3 +1,11 @@
+/* Hawkins background with red-tinted, low-opacity image */
+ .home {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(120deg, #ff1a1a44 0%, #000 100%);
+  background-size: cover;
+  background-blend-mode: lighten, screen;
+  opacity: 1;
 
 /* Gravity Layer (big motion) */
 #gravityLayer {
@@ -263,25 +271,33 @@
 
 /* CENTER CONTENT */
 .content {
-  position: relative;
+  position: absolute;
   z-index: 4;
-  height: 100%;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 /* TITLE */
 .main-title {
-  font-size: 4.5rem;
-  letter-spacing: 8px;
-  color: #b00000;
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 5rem;
+  letter-spacing: 10px;
+  color: #ff1a1a;
   text-shadow:
-    0 0 10px red,
-    0 0 30px crimson,
-    0 0 60px darkred;
-  animation: flicker 3s infinite;
+    0 0 20px #ff1a1a,
+    0 0 40px #b00000,
+    0 0 80px #ff1a1a,
+    0 0 120px #b00000;
+  animation: flicker 2.5s infinite;
+  margin-bottom: 30px;
+  filter: brightness(1.2);
 }
 
 @keyframes flicker {
@@ -456,15 +472,40 @@
 /* BUTTON */
 .enter-btn {
   margin-top: 50px;
-  padding: 16px 50px;
-  background: transparent;
-  border: 2px solid #b00000;
-  color: white;
-  letter-spacing: 4px;
-  font-size: 13px;
+  padding: 18px 60px;
+  background: rgba(30,0,0,0.85);
+  border: 2.5px solid #ff1a1a;
+  color: #fff;
+  letter-spacing: 5px;
+  font-size: 1.2rem;
+  font-family: 'Cinzel', 'Georgia', serif;
   cursor: pointer;
-  transition: 0.4s;
+  border-radius: 8px;
+  box-shadow: 0 0 20px #ff1a1a55, 0 0 40px #b00000aa;
+  transition: 0.3s;
   animation: pulse 2.5s infinite;
+  text-shadow: 0 0 10px #ff1a1a88;
+}
+.enter-btn:hover {
+  background: #ff1a1a;
+  color: #fff;
+  box-shadow: 0 0 40px #ff1a1a, 0 0 80px #b00000;
+  transform: scale(1.08);
+}
+/* Subtle mist/texture overlay */
+.mist {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: repeating-linear-gradient(-45deg, rgba(255,0,0,0.04), rgba(255,0,0,0.04) 1px, transparent 1px, transparent 10px);
+  opacity: 0.25;
+  animation: mistMove 12s linear infinite;
+}
+@keyframes mistMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 200px 200px; }
+}
 }
 
 .enter-btn:hover {
