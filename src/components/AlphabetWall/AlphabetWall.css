@@ -1,0 +1,133 @@
+/* GLOSSY ALPHABET WALL */
+/* WALL */
+.st-wall {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 26px;
+  width: 520px;
+  margin: 120px auto;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+/* CELL */
+.st-cell {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+
+
+/* LETTER CIRCLE - RED GLOW */
+.st-letter {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  border: 3px solid #ff1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: #e8e8e8;
+  box-shadow:
+    0 0 16px 2px #ff1a1a66,
+    0 0 32px 4px #ff1a1a33;
+  transition: color .4s, box-shadow .4s, border .4s;
+}
+
+.st-letter.active {
+  color: #fff;
+  border: 3px solid #ff3b3b;
+  box-shadow:
+    0 0 24px 6px #ff3b3b,
+    0 0 48px 12px #ff3b3b99;
+}
+
+/* HOVER GLOW */
+.st-letter:hover {
+  color: #ff3b3b;
+  border: 3px solid #ff3b3b;
+  box-shadow:
+    0 0 24px 6px #ff3b3b,
+    0 0 48px 12px #ff3b3b99;
+}
+
+/* RUN BLINK */
+.blink {
+  animation: runBlink 1.2s infinite ease-in-out;
+  color: #ff3b3b;
+}
+
+@keyframes runBlink {
+  0% { opacity: .3; box-shadow: 0 0 6px rgba(255,0,0,.3); }
+  50% { opacity: 1; box-shadow: 0 0 18px rgba(255,0,0,.9); }
+  100% { opacity: .3; box-shadow: 0 0 6px rgba(255,0,0,.3); }
+}
+
+/* BULB FLICKER */
+@keyframes bulbFlicker {
+  0%,100% { opacity: .5 }
+  50% { opacity: 1 }
+}
+
+/* EACH LETTER BLOCK */
+.letter-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* BULB */
+.bulb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffd27d;
+  margin-bottom: 2px;
+  box-shadow:
+    0 0 12px #ffd27d,
+    0 0 32px 4px rgba(255, 180, 80, 0.7),
+    0 0 40px 8px rgba(255, 200, 120, 0.3);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.bulb.active {
+  background: #e50914;
+  box-shadow:
+    0 0 20px #e50914,
+    0 0 40px 8px rgba(229, 9, 20, 0.8),
+    0 0 60px 16px rgba(229, 9, 20, 0.4);
+}
+
+/* LETTER BASE */
+.letter {
+  position: relative;
+  font-size: 24px;
+  font-weight: 600;
+  color: #f5f5f5;
+  letter-spacing: 2px;
+  cursor: pointer;
+  text-shadow:
+    0 0 6px rgba(255, 200, 120, 0.4),
+    0 0 12px rgba(255, 80, 80, 0.2);
+}
+
+/* HOVER GLOW (ONLY NON-RUN LETTERS) */
+.letter:not(.blink):hover {
+  color: #ff1a1a;
+  text-shadow:
+    0 0 6px rgba(255,0,0,0.6),
+    0 0 14px rgba(255,0,0,0.4);
+}
+
+/* RUN BLINK */
+.blink {
+  color: #ff1a1a;
+  text-shadow:
+    0 0 8px rgba(255,0,0,0.8),
+    0 0 18px rgba(255,0,0,0.6);
+}

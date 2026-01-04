@@ -2,13 +2,15 @@ import { useState } from "react";
 import Particles from "react-tsparticles";
 import particlesConfig from "./particlesConfig";
 import Portal from "./Portal";
-import PortalNavbar from "./PortalNavbar";
+import AlphabetWall from "../AlphabetWall/AlphabetWall";
+import WormholeNavbar from "./WormholeNavbar";
 import "./Home.css";
 
-export default function Home({ onEnter }) {
+function Home() {
   const [crackOpen, setCrackOpen] = useState(false);
   const [shake, setShake] = useState(false);
   const [crackPos, setCrackPos] = useState({ x: 0, y: 0 });
+  const [showNavbar, setShowNavbar] = useState(false);
 
   const handleEnter = (e) => {
     // Mouse position relative to viewport
@@ -29,7 +31,8 @@ export default function Home({ onEnter }) {
     }, 400);
 
     setTimeout(() => {
-      onEnter();
+      setShowNavbar(true);
+      // Optionally call onEnter();
     }, 3000);
   };
 
@@ -51,22 +54,30 @@ export default function Home({ onEnter }) {
 
   return (
     <div className="home">
-      <PortalNavbar onPortalClick={() => {}} />
-      <div id="gravityLayer">
-        <div id="shakeLayer" className={shake ? "shake" : ""}>
-          <Particles options={particlesConfig} className="particles" />
-          <div className="texture" />
+      {showNavbar ? (
+        <>
+          <WormholeNavbar />
+          <AlphabetWall />
+        </>
+      ) : (
+        <div id="gravityLayer">
+          <div id="shakeLayer" className={shake ? "shake" : ""}>
+            <Particles options={particlesConfig} className="particles" />
+            <div className="texture" />
 
-          <div className="content">
-            <h1 className="main-title">STRANGER THINGS</h1>
-            <button className="enter-btn" onClick={handleEnter}>
-              ENTER THE UPSIDE DOWN
-            </button>
+            <div className="content">
+              <h1 className="main-title">STRANGER THINGS</h1>
+              <button className="enter-btn" onClick={handleEnter}>
+                ENTER THE UPSIDE DOWN
+              </button>
+            </div>
+
+            {crackOpen && <Portal x={crackPos.x} y={crackPos.y} />}
           </div>
-
-          {crackOpen && <Portal x={crackPos.x} y={crackPos.y} />}
         </div>
-      </div>
+      )}
     </div>
   );
 }
+
+export default Home;

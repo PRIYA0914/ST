@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import "./wormholeNavbar.css";
+import AlphabetWall from "../AlphabetWall/AlphabetWall";
 
 export default function WormholeNavbar() {
   const [showWall, setShowWall] = useState(false);
@@ -49,35 +50,5 @@ function NavItem({ text }) {
     >
       {text}
     </motion.li>
-  );
-}
-
-/* ALPHABET WALL COMPONENT */
-function AlphabetWall() {
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-
-  return (
-    <motion.div
-      className="alphabet-wall"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      {letters.map((l, i) => (
-        <motion.span
-          key={i}
-          className="wall-letter"
-          initial={{ opacity: 0.3 }}
-          animate={{ opacity: [0.3, 1, 0.3] }}
-          transition={{
-            delay: i * 0.05,
-            duration: 1.2,
-            repeat: Infinity,
-          }}
-        >
-          {l}
-        </motion.span>
-      ))}
-    </motion.div>
   );
 }
