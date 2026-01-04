@@ -33,20 +33,40 @@ export default function Home({ onEnter }) {
     }, 3000);
   };
 
+  // Reverse transition (exit Upside Down)
+  // const exitUpsideDown = (onBack) => {
+  //   const portal = document.getElementById("portalOverlay");
+  //   if (!portal) return;
+  //   portal.classList.remove("portal-open");
+  //   portal.classList.add("portal-close");
+  //   setPortalActive(true);
+  //   setTimeout(() => {
+  //     onBack();
+  //   }, 900);
+  //   setTimeout(() => {
+  //     portal.classList.remove("portal-close");
+  //     setPortalActive(false);
+  //   }, 2200);
+  // };
+
   return (
-    <div className={`home ${shake ? "shake" : ""}`}>
-      <Particles options={particlesConfig} className="particles" />
-      <div className="texture" />
-      <Menu />
+    <div className="home">
+      <div id="gravityLayer">
+        <div id="shakeLayer" className={shake ? "shake" : ""}>
+          <Particles options={particlesConfig} className="particles" />
+          <div className="texture" />
+          <Menu />
 
-      <div className="content">
-        <h1 className="main-title">STRANGER THINGS</h1>
-        <button className="enter-btn" onClick={handleEnter}>
-          ENTER THE UPSIDE DOWN
-        </button>
+          <div className="content">
+            <h1 className="main-title">STRANGER THINGS</h1>
+            <button className="enter-btn" onClick={handleEnter}>
+              ENTER THE UPSIDE DOWN
+            </button>
+          </div>
+
+          {crackOpen && <Portal x={crackPos.x} y={crackPos.y} />}
+        </div>
       </div>
-
-      {crackOpen && <Portal x={crackPos.x} y={crackPos.y} />}
     </div>
   );
 }

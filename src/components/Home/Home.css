@@ -1,80 +1,113 @@
+
+/* Gravity Layer (big motion) */
+#gravityLayer {
+  width: 100%;
+  height: 100%;
+  will-change: transform, filter;
+}
+
+/* Reverse gravity pull */
+.gravity-pull {
+  animation: gravityPull 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes gravityPull {
+  0% {
+    transform: translateY(0) scaleY(1);
+    filter: blur(0);
+  }
+  50% {
+    transform: translateY(-60px) scaleY(1.04);
+    filter: blur(4px);
+  }
+  100% {
+    transform: translateY(-160px) scaleY(1.12);
+    filter: blur(10px);
+  }
+}
+
+/* Shake Layer (micro chaos) */
+#shakeLayer {
+  width: 100%;
+  height: 100%;
+}
+
+#shakeLayer.shake {
+  animation: cameraShake 0.6s ease-in-out;
+}
+
+@keyframes cameraShake {
+  0% { transform: translate(0, 0); }
+  15% { transform: translate(-4px, 2px); }
+  30% { transform: translate(4px, -2px); }
+  45% { transform: translate(-3px, 1px); }
+  60% { transform: translate(3px, -1px); }
+  75% { transform: translate(-2px, 1px); }
+  100% { transform: translate(0, 0); }
+}
+.portal-close {
+  animation: portalCollapse 2.2s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+@keyframes portalCollapse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+  40% {
+    transform: scale(1.05);
+    opacity: 1;
+    filter: blur(20px);
+  }
+  100% {
+    transform: scale(0.1);
+    opacity: 0;
+    filter: blur(60px);
+  }
+}
 /* =====================
    PORTAL POSITIONING
 ===================== */
-.portal-container {
+/* =====================
+   PORTAL OVERLAY (CRACK-FREE)
+===================== */
+.portal-overlay {
   position: fixed;
-  transform: translate(-50%, -50%);
+  inset: 0;
   z-index: 30;
   pointer-events: none;
-  opacity: 1;
-}
-
-/* =====================
-   SVG CRACK
-===================== */
-.crack-svg {
-  width: 220px;
-  height: 520px;
-  overflow: visible;
-  animation: crackGrow 2.4s forwards;
-}
-
-/* CORE FRACTURE */
-.crack-core {
-  fill: none;
-  stroke: #330000;
-  stroke-width: 10;
-  filter: drop-shadow(0 0 10px black);
-}
-
-/* INNER GLOW */
-.crack-glow {
-  fill: none;
-  stroke: #ff2a00;
-  stroke-width: 4;
-  filter: blur(4px);
-  animation: glowPulse 0.2s infinite;
-}
-
-/* BRANCHES */
-.crack-branch {
-  fill: none;
-  stroke: #ff4500;
-  stroke-width: 2;
-  opacity: 0;
-  filter: blur(1px);
-  animation: branchGrow 1.2s forwards;
-  animation-delay: 0.5s;
-}
-
-/* =====================
-   LAVA CORE
-===================== */
-.lava-core {
-  position: absolute;
-  width: 10px;
-  height: 400px;
-  background: linear-gradient(
-    to bottom,
-    #ff0000,
-    #ff6a00,
-    #ff0000
+  background: radial-gradient(
+    circle at center,
+    #ff3b3b 0%,
+    #b80000 45%,
+    #3a0000 75%,
+    #120000 100%
   );
-  filter: blur(18px);
-  animation: lavaExpand 2.4s forwards;
+  opacity: 0;
+  transform: scale(0.15);
+  filter: blur(70px);
 }
 
-/* =====================
-   ANIMATIONS
-===================== */
-@keyframes crackGrow {
-  from {
-    transform: scaleY(0.05);
+.portal-open {
+  animation: portalExpand 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes portalExpand {
+  0% {
+    transform: scale(0.15);
     opacity: 0;
+    filter: blur(70px);
   }
-  to {
-    transform: scaleY(1.2);
+  55% {
     opacity: 1;
+    transform: scale(1.08);
+    filter: blur(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
   }
 }
 

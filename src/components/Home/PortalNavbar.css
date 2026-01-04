@@ -1,0 +1,98 @@
+/* BASE NAVBAR LAYOUT */
+.portal-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  z-index: 100;
+  font-family: "Montserrat", sans-serif;
+  background: transparent;
+  will-change: transform;
+}
+
+/* LEFT & RIGHT HALVES */
+.nav-half {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.6s ease,
+    color 0.6s ease,
+    filter 0.6s ease;
+}
+
+/* NORMAL WORLD */
+.nav-half.normal {
+  background: #ffffff;
+  color: #7a0000;
+}
+
+/* UPSIDE DOWN */
+.nav-half.upside {
+  background: #120000;
+  color: #ff2b2b;
+  filter: saturate(1.2);
+}
+
+.nav-item {
+  letter-spacing: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* CENTER PORTAL ORB */
+.nav-portal {
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.portal-orb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ff3b3b, #7a0000);
+  box-shadow:
+    0 0 10px red,
+    0 0 30px crimson,
+    0 0 60px darkred;
+  animation: orbPulse 3s ease-in-out infinite;
+  cursor: pointer;
+}
+
+@keyframes orbPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+/* HOVER = WORLD INVERSION (CONTROLLED) */
+.portal-navbar:hover .nav-half.normal {
+  background: #120000;
+  color: #ff2b2b;
+  filter: blur(0.6px);
+}
+
+.portal-navbar:hover .nav-half.upside {
+  background: #ffffff;
+  color: #7a0000;
+  filter: blur(0.6px);
+}
+
+/* GRAVITY FLIP (SMOOTHER, NO JUMP) */
+.portal-navbar:hover {
+  animation: gravityFlip 0.8s cubic-bezier(0.22, 1.4, 0.36, 1);
+  box-shadow:
+    -1.5px 0 red,
+     1.5px 0 cyan;
+}
+
+@keyframes gravityFlip {
+  0%   { transform: translateY(0); }
+  40%  { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
