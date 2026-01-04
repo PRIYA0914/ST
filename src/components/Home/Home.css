@@ -1,0 +1,347 @@
+/* =========================
+   BRANCHING LIGHTNING
+========================= */
+.branch {
+  fill: none;
+  stroke: rgba(255, 60, 60, 0.9);
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 10px red);
+  opacity: 0;
+}
+
+/* Branches appear AFTER crack forms */
+.portal-container.open .branch {
+  animation: branchFlash 1.2s forwards;
+  animation-delay: 0.6s;
+}
+
+@keyframes branchFlash {
+  0% {
+    opacity: 0;
+    stroke-dasharray: 20;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+/* =========================
+   CAMERA SHAKE
+========================= */
+.home.shake {
+  animation: cameraShake 0.6s ease-in-out;
+}
+
+@keyframes cameraShake {
+  0% { transform: translate(0, 0); }
+  15% { transform: translate(-4px, 2px); }
+  30% { transform: translate(4px, -2px); }
+  45% { transform: translate(-3px, 1px); }
+  60% { transform: translate(3px, -1px); }
+  75% { transform: translate(-2px, 1px); }
+  100% { transform: translate(0, 0); }
+}
+/* PORTAL EFFECT */
+.portal {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,0,0,0.35), transparent 60%);
+  animation: portalOpen 2.2s forwards;
+  z-index: 10;
+}
+
+/* SVG CRACK STYLES */
+.portal-svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 400px;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.portal-crack {
+  stroke: #fff;
+  stroke-width: 4;
+  fill: none;
+  filter: drop-shadow(0 0 8px #fff8);
+}
+
+.portal-glow {
+  stroke: #ff2a2a;
+  stroke-width: 10;
+  fill: none;
+  opacity: 0.5;
+  filter: blur(6px) drop-shadow(0 0 16px #ff2a2a88);
+}
+
+@keyframes portalOpen {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+.home {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background: radial-gradient(circle at center, #180000, #000);
+  overflow: hidden;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* PARTICLES */
+.particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* DIAGONAL UPSIDE DOWN TEXTURE */
+.texture {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 0, 0, 0.04),
+    rgba(255, 0, 0, 0.04) 1px,
+    transparent 1px,
+    transparent 10px
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* MENU */
+.menu {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  display: flex;
+  gap: 30px;
+  z-index: 3;
+  color: white;
+  opacity: 0.7;
+}
+
+/* CENTER CONTENT */
+.content {
+  position: relative;
+  z-index: 4;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* TITLE */
+.main-title {
+  font-size: 4.5rem;
+  letter-spacing: 8px;
+  color: #b00000;
+  text-shadow:
+    0 0 10px red,
+    0 0 30px crimson,
+    0 0 60px darkred;
+  animation: flicker 3s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 1; }
+  45% { opacity: 0.85; }
+  50% { opacity: 0.4; }
+  55% { opacity: 1; }
+}
+
+/* =========================
+   PORTAL CONTAINER
+========================= */
+.portal-container {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* =========================
+   CRACK SVG
+========================= */
+.crack-svg {
+  width: 120px;
+  height: 420px;
+  overflow: visible;
+}
+
+/* CRACK LINE */
+.crack {
+  fill: none;
+  stroke: #ff2b2b;
+  stroke-width: 2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 8px red);
+  animation: crackFlicker 0.15s infinite;
+}
+
+/* LEFT / RIGHT POSITION */
+.crack-left {
+  transform-origin: center;
+}
+.crack-right {
+  transform-origin: center;
+}
+
+/* =========================
+   OPENING ANIMATION
+========================= */
+.portal-container.open .crack-left {
+  animation: openLeft 2s forwards, crackFlicker 0.15s infinite;
+}
+.portal-container.open .crack-right {
+  animation: openRight 2s forwards, crackFlicker 0.15s infinite;
+}
+
+@keyframes openLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-40px); }
+}
+
+@keyframes openRight {
+  from { transform: translateX(0); }
+  to { transform: translateX(40px); }
+}
+
+/* =========================
+   RED ENERGY CORE
+========================= */
+.portal-energy {
+  position: absolute;
+  width: 8px;
+  height: 300px;
+  background: radial-gradient(circle, #ff0000, transparent);
+  opacity: 0;
+  filter: blur(10px);
+}
+.portal-container.open .portal-energy {
+  animation: energyGrow 2s forwards;
+}
+
+@keyframes energyGrow {
+  from {
+    width: 8px;
+    opacity: 0.2;
+  }
+  to {
+    width: 120px;
+    opacity: 1;
+  }
+}
+
+/* =========================
+   FLICKER
+========================= */
+@keyframes crackFlicker {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* PORTAL SVG */
+.portal-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 300px;
+  transform: translate(-50%, -50%) scaleY(0);
+  z-index: 10;
+  animation: portalOpen 2.2s forwards;
+}
+
+/* MAIN CRACK */
+.portal-crack {
+  fill: none;
+  stroke: #ff1a1a;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 6;
+  animation: crackFlicker 0.15s infinite;
+}
+
+/* GLOW */
+.portal-glow {
+  fill: none;
+  stroke: rgba(255, 0, 0, 0.7);
+  stroke-width: 6;
+  filter: blur(6px);
+}
+
+/* OPENING ANIMATION */
+@keyframes portalOpen {
+  0% {
+    transform: translate(-50%, -50%) scaleY(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scaleY(1.4);
+    opacity: 1;
+  }
+}
+
+/* ELECTRIC FLICKER */
+@keyframes crackFlicker {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* SCREEN DARKENING (DEPTH EFFECT) */
+.home.entering::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent 30%, black 80%);
+  z-index: 9;
+  animation: darken 2s forwards;
+}
+
+@keyframes darken {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* BUTTON */
+.enter-btn {
+  margin-top: 50px;
+  padding: 16px 50px;
+  background: transparent;
+  border: 2px solid #b00000;
+  color: white;
+  letter-spacing: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.4s;
+  animation: pulse 2.5s infinite;
+}
+
+.enter-btn:hover {
+  background: #b00000;
+  box-shadow: 0 0 20px red, 0 0 50px crimson;
+  transform: scale(1.08);
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px red; }
+  50% { box-shadow: 0 0 30px crimson; }
+  100% { box-shadow: 0 0 10px red; }
+}

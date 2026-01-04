@@ -1,0 +1,20 @@
+.menu {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  list-style: disc;
+  color: rgba(255, 255, 255, 0.75);
+  z-index: 5;
+  font-size: 16px;
+}
+
+.menu li {
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.menu li:hover {
+  color: red;
+  text-shadow: 0 0 10px red;
+}

@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+body.entering {
+  animation: enterUpsideDown 1.2s forwards;
+}
+
+@keyframes enterUpsideDown {
+  to {
+    background: black;
+    filter: blur(6px);
+  }
+}
