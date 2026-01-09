@@ -1,27 +1,59 @@
 
-import { useState } from "react";
-import Home from "./components/Home/Home";
+import React, { useState } from "react";
 
 
 
-const bgStyle = {
-  minHeight: "100vh",
-  width: "100vw",
-  background: "linear-gradient(rgba(0,0,0,0.7), rgba(30,0,0,0.7))",
-};
+import WormholeSection from "./components/WormholeSection";
+import HawkinsSection from "./components/HawkinsSection";
+import RiftSection from "./components/RiftSection";
+import Subject011Section from "./components/Subject011Section";
+import GateSection from "./components/GateSection";
+import UpsideDownSection from "./components/UpsideDownSection";
+import PortalNavbar from "./components/Home/PortalNavbar";
+import LandingSection from "./components/LandingSection";
+
+
 
 function App() {
-  const [entered, setEntered] = useState(false);
+  const [section, setSection] = useState("landing");
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Handles animated section switching
+  const handleSectionChange = (nextSection) => {
+    if (section === "wormhole" && nextSection === "upside") {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setSection(nextSection);
+        setIsTransitioning(false);
+      }, 1200); // match portal animation duration
+    } else {
+      setSection(nextSection);
+    }
+  };
+
+  // Section rendering logic
+  let SectionComponent = null;
+  if (section === "landing") SectionComponent = <LandingSection onEnter={() => setSection("hawkins")} />;
+  if (section === "hawkins") SectionComponent = <HawkinsSection />;
+  if (section === "rift") SectionComponent = <RiftSection />;
+  if (section === "wormhole") SectionComponent = <WormholeSection />;
+  if (section === "subject011") SectionComponent = <Subject011Section />;
+  if (section === "gate") SectionComponent = <GateSection />;
+  if (section === "upside") SectionComponent = <UpsideDownSection />;
 
   return (
-    <div style={bgStyle}>
-      {entered ? (
-        <div style={{textAlign: 'center', marginTop: '100px', fontSize: '2rem', color: '#ff1a1a'}}>Welcome to the Upside Down!</div>
-      ) : (
-        <Home onEnter={() => setEntered(true)} />
+    <div className={`app ${section}`}>
+      {section !== "landing" && <PortalNavbar onNavigate={handleSectionChange} />}
+      <div style={{ marginTop: section !== "landing" ? 60 : 0 }}>
+        {SectionComponent}
+      </div>
+      {/* Portal transition overlay for wormhole */}
+      {section === "wormhole" && isTransitioning && (
+        <div className="portal-transition" />
       )}
     </div>
   );
 }
 
 export default App;
+

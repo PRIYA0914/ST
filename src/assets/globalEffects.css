@@ -1,0 +1,156 @@
+/* GLOBAL ANIMATION VARIABLES & CLASSES */
+:root {
+  --color-bg-black: #0a0a0a;
+  --color-red-glow: #e50914;
+  --color-neon-border: #ff003c;
+  --color-fog: rgba(255,0,60,0.08);
+  --color-fog-blue: rgba(80,120,180,0.12);
+  --color-upside: #2a2d36;
+  --glow-blur: 0 0 32px var(--color-red-glow), 0 0 8px var(--color-red-glow);
+  --glow-breath: 0 0 16px var(--color-red-glow), 0 0 4px var(--color-red-glow);
+  --transition-slow: 0.8s cubic-bezier(0.77,0,0.18,1);
+  --transition-cinematic: 1.2s cubic-bezier(0.77,0,0.18,1);
+  --ease-cinematic: cubic-bezier(0.77,0,0.18,1);
+}
+
+body {
+  background: var(--color-bg-black);
+  color: #fff;
+  font-family: 'Bebas Neue', 'Oswald', 'Arial Black', Arial, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Cinematic fade-in */
+.cinematic-fade-in {
+  opacity: 0;
+  animation: fadeInCinematic 1.6s var(--ease-cinematic) forwards;
+}
+@keyframes fadeInCinematic {
+  to { opacity: 1; }
+}
+
+/* Breathing glow (for text, buttons, borders) */
+.breathing-glow {
+  animation: breathingGlow 7s ease-in-out infinite alternate;
+}
+@keyframes breathingGlow {
+  0% { filter: drop-shadow(var(--glow-blur)); }
+  60% { filter: drop-shadow(var(--glow-breath)); }
+  100% { filter: drop-shadow(var(--glow-blur)); }
+}
+
+/* Staggered fade-up for text */
+.stagger-fade-up {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: fadeUpStagger 0.7s var(--ease-cinematic) forwards;
+}
+@keyframes fadeUpStagger {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Neon border draw */
+.neon-border {
+  box-shadow: 0 0 24px 2px var(--color-neon-border) inset, 0 0 8px 2px var(--color-neon-border);
+  border: 2px solid var(--color-neon-border);
+  border-radius: 8px;
+  animation: neonBorderDraw 1.2s var(--ease-cinematic) forwards;
+}
+@keyframes neonBorderDraw {
+  0% { box-shadow: none; border-color: #222; }
+  80% { box-shadow: 0 0 8px 2px var(--color-neon-border); border-color: var(--color-neon-border); }
+  100% { box-shadow: 0 0 24px 2px var(--color-neon-border) inset, 0 0 8px 2px var(--color-neon-border); }
+}
+
+/* Fog overlay */
+.fog-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 60%, var(--color-fog) 0%, transparent 80%);
+  opacity: 0.5;
+  z-index: 1;
+  animation: fogDrift 18s linear infinite alternate;
+}
+@keyframes fogDrift {
+  0% { background-position: 50% 60%; }
+  100% { background-position: 60% 55%; }
+}
+
+/* Micro flicker (for text, border, etc) */
+.micro-flicker {
+  animation: microFlicker 0.18s steps(2, end) 1;
+}
+@keyframes microFlicker {
+  0%, 100% { opacity: 1; }
+  40% { opacity: 0.7; }
+  60% { opacity: 0.4; }
+}
+
+/* Utility for slow transitions */
+.slow-transition {
+  transition: all var(--transition-slow);
+}
+
+/* Utility for cinematic transitions */
+.cinematic-transition {
+  transition: all var(--transition-cinematic);
+}
+
+/* Hide for black screen overlay */
+.hide {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+/* Film grain overlay */
+.film-grain-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  opacity: 0.18;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" seed="2"/></filter><rect width="100%" height="100%" filter="url(%23grain)" opacity="0.5"/></svg>');
+  background-size: 400px 400px;
+  animation: grainMove 1.8s steps(2) infinite;
+}
+@keyframes grainMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 100px; }
+}
+
+/* Flicker effect */
+.flicker {
+  animation: flickerAnim 2.5s infinite;
+}
+@keyframes flickerAnim {
+  0%, 100% { opacity: 1; }
+  45% { opacity: 0.92; }
+  48% { opacity: 0.7; }
+  50% { opacity: 0.4; }
+  52% { opacity: 0.92; }
+  55% { opacity: 1; }
+}
+
+/* Custom cursor */
+body, * {
+  cursor: none !important;
+}
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  z-index: 100000;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ff1a1a 0%, #b30000 80%, transparent 100%);
+  box-shadow: 0 0 18px 6px #ff1a1a55;
+  opacity: 0.7;
+  mix-blend-mode: lighten;
+  transition: transform 0.12s cubic-bezier(0.4,0,0.2,1), opacity 0.2s;
+}

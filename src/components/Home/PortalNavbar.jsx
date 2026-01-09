@@ -4,6 +4,19 @@ import "./PortalNavbar.css";
 const PortalNavbar = () => {
   const overlayRef = useRef(null);
   const rumbleRef = useRef(null);
+  const navRef = useRef(null);
+  React.useEffect(() => {
+    const nav = navRef.current;
+    const onScroll = () => {
+      if (window.scrollY > 10) {
+        nav && nav.classList.add("scrolled");
+      } else {
+        nav && nav.classList.remove("scrolled");
+      }
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // WORMHOLE click handler
   const handleWormhole = () => {
@@ -39,7 +52,7 @@ const PortalNavbar = () => {
 
   return (
     <>
-      <nav className="st-navbar">
+      <nav className="st-navbar" ref={navRef}>
         <ul className="st-menu">
           <li data-type="normal">HAWKINS</li>
           <li data-type="rift">THE RIFT</li>
@@ -54,12 +67,6 @@ const PortalNavbar = () => {
         </ul>
       </nav>
       <div className="fx-overlay" ref={overlayRef}></div>
-      <audio
-        id="rumble"
-        ref={rumbleRef}
-        src="/sounds/rumble.mp3"
-        preload="auto"
-      />
     </>
   );
 };

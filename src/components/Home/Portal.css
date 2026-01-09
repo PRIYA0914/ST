@@ -1,0 +1,6 @@
+.portal-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, red 0%, black 70%);
+  z-index: 999;
+}

@@ -1,0 +1,140 @@
+.upside-root {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(180deg, #232a36 0%, #2a2d36 100%);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  filter: invert(0.18) grayscale(0.7);
+  transition: filter 1.2s cubic-bezier(0.77,0,0.18,1);
+}
+.upside-fog {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 60% 60%, rgba(80,120,180,0.22) 0%, transparent 80%);
+  opacity: 0.7;
+  z-index: 2;
+  pointer-events: none;
+  transition: filter 0.5s;
+}
+.upside-spores {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.upside-spore {
+  position: absolute;
+  left: calc(10% + 80% * var(--i, 0) / 14);
+  top: calc(60% + 30% * var(--i, 0) / 14);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(200,220,255,0.18);
+  box-shadow: 0 0 8px 2px #fff2;
+  opacity: 0.7;
+  filter: blur(0.5px);
+  animation: upsideSporesFloat 12s linear infinite alternate;
+}
+@keyframes upsideSporesFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-44px); }
+}
+.upside-vines {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+}
+.upside-vine {
+  width: 8px;
+  height: 100%;
+  background: linear-gradient(180deg, #2a2d36 0%, #232a36 100%);
+  opacity: 0.4;
+  border-radius: 8px;
+  filter: blur(2px);
+  animation: upsideVineSway 8s ease-in-out infinite alternate;
+}
+@keyframes upsideVineSway {
+  0% { transform: rotate(-2deg); }
+  100% { transform: rotate(4deg); }
+}
+.upside-drips {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+}
+.upside-drip {
+  width: 4px;
+  height: 80px;
+  background: linear-gradient(180deg, #b0c4de 0%, transparent 100%);
+  opacity: 0.18;
+  border-radius: 4px;
+  filter: blur(1.5px);
+  animation: upsideDrip 7s linear infinite alternate;
+}
+@keyframes upsideDrip {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(44px); }
+}
+.upside-cursor-halo {
+  position: fixed;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,0,0,0.18) 0%, transparent 80%);
+  pointer-events: none;
+  z-index: 1000;
+  mix-blend-mode: lighten;
+  transition: filter 0.2s, opacity 0.2s;
+}
+.upside-content {
+  position: relative;
+  z-index: 10;
+  margin-top: 220px;
+  text-align: center;
+  color: #fff;
+  filter: none;
+  transition: filter 0.2s;
+}
+.upside-title {
+  font-size: 2.8rem;
+  color: #fff;
+  text-shadow: 0 0 16px #e50914, 0 0 2px #fff;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.09em;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.upside-desc {
+  font-size: 1.2rem;
+  color: #f8dada;
+  text-shadow: 0 0 8px #e50914;
+  max-width: 420px;
+  margin: 0 auto;
+}
+.upside-flicker {
+  animation: upsideFlicker 0.18s steps(2, end) 1;
+}
+@keyframes upsideFlicker {
+  0%, 100% { filter: invert(0.18) grayscale(0.7); }
+  40% { filter: invert(0.3) grayscale(0.9); }
+  60% { filter: invert(0.1) grayscale(0.5); }
+}
+.upside-jitter {
+  animation: upsideJitter 0.06s steps(2, end) 1;
+}
+@keyframes upsideJitter {
+  0%, 100% { transform: none; }
+  50% { transform: translateX(-2px) skewY(1deg); }
+}

@@ -1,0 +1,99 @@
+.gate-root {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(180deg, #1a0e1e 0%, #0a0a18 100%);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.gate-portal {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 60%, #2a1a1e 0%, #0a0a18 100%);
+  box-shadow: 0 0 32px 8px #e50914, 0 0 8px 2px #fff;
+  overflow: hidden;
+  z-index: 10;
+  transition: box-shadow 0.3s, filter 0.3s, transform 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.gate-portal.open {
+  box-shadow: 0 0 64px 18px #e50914, 0 0 18px 4px #fff;
+  background: radial-gradient(ellipse at 50% 60%, #3a1a1e 0%, #0a0a18 100%);
+  transform: scale(1.06);
+}
+.gate-portal.flash {
+  animation: gateFlash 0.18s linear;
+}
+@keyframes gateFlash {
+  0% { filter: brightness(2.2); }
+  100% { filter: brightness(1); }
+}
+.gate-portal.shake {
+  animation: gateShake 0.4s cubic-bezier(0.77,0,0.18,1);
+}
+@keyframes gateShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-12px); }
+  40% { transform: translateX(10px); }
+  60% { transform: translateX(-8px); }
+  80% { transform: translateX(6px); }
+}
+.gate-texture {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle, #2a1a1e 0 8px, #3a1a1e 12px 24px, #0a0a18 28px 40px);
+  opacity: 0.7;
+  z-index: 2;
+  animation: gateTextureMove 8s linear infinite alternate;
+}
+@keyframes gateTextureMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 20px; }
+}
+.gate-light-leak {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 60%, rgba(229,9,20,0.22) 0%, transparent 80%);
+  opacity: 0.7;
+  z-index: 3;
+  pointer-events: none;
+  animation: gateLightLeak 3.2s ease-in-out infinite alternate;
+}
+@keyframes gateLightLeak {
+  0% { opacity: 0.5; }
+  100% { opacity: 0.85; }
+}
+.gate-shadows {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(120deg, transparent 60%, #0a0a18 100%);
+  opacity: 0.5;
+  z-index: 4;
+  animation: gateShadowsCrawl 7s ease-in-out infinite alternate;
+}
+@keyframes gateShadowsCrawl {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+.gate-center-text {
+  position: relative;
+  z-index: 10;
+  font-size: 2.2rem;
+  color: #fff;
+  text-shadow: 0 0 16px #e50914, 0 0 2px #fff;
+  letter-spacing: 0.09em;
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: none;
+}

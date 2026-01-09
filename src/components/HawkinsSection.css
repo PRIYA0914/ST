@@ -1,0 +1,100 @@
+.hawkins-root {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: linear-gradient(180deg, #181c22 0%, #23272e 100%);
+}
+.hawkins-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+  filter: brightness(0.38) blur(1.5px);
+  z-index: 1;
+  transition: transform 1.2s var(--ease-cinematic);
+}
+.hawkins-fog {
+  z-index: 2;
+  opacity: 0.45;
+}
+.hawkins-dust {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.hawkins-dust-particle {
+  position: absolute;
+  left: calc(10% + 80% * var(--i, 0) / 18);
+  top: calc(60% + 30% * var(--i, 0) / 18);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  box-shadow: 0 0 8px 2px #fff2;
+  opacity: 0.7;
+  filter: blur(0.5px);
+  animation: dustFloat 12s linear infinite alternate;
+}
+@keyframes dustFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-24px); }
+}
+.hawkins-fg {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+.hawkins-title {
+  font-size: 3.2rem;
+  color: #fff;
+  margin-top: 3.2rem;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 12px #e50914, 0 0 2px #fff;
+    -webkit-user-select: none;
+    user-select: none;
+  cursor: pointer;
+  transition: text-shadow 0.3s;
+}
+.text-glow {
+  text-shadow: 0 0 24px #e50914, 0 0 8px #fff;
+}
+.hawkins-streetlight {
+  margin: 2.2rem 0 1.2rem 0;
+  width: 18px;
+  height: 60px;
+  background: #222;
+  border-radius: 8px 8px 12px 12px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  box-shadow: 0 0 8px 2px #000a;
+}
+.hawkins-streetlight-glow {
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fffbe6 0%, #e50914 80%, transparent 100%);
+  opacity: 0.7;
+  filter: blur(2px);
+  pointer-events: none;
+  z-index: 2;
+}
+.hawkins-desc {
+  font-size: 1.3rem;
+  color: #e0e0e0;
+  margin-bottom: 2.2rem;
+  text-align: center;
+  max-width: 420px;
+  text-shadow: 0 0 6px #000a;
+}

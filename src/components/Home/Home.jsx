@@ -1,85 +1,109 @@
-import { useState } from "react";
-import Particles from "react-tsparticles";
-import particlesConfig from "./particlesConfig";
-import Portal from "./Portal";
-
-import WormholeNavbar from "./WormholeNavbar";
+// import AlphabetWall from "../AlphabetWall/AlphabetWall";
+// import PortalNavbar from "./PortalNavbar";
 import "./Home.css";
 
-function Home() {
-  const [crackOpen, setCrackOpen] = useState(false);
+import React, { useRef, useState } from "react";
+import WormholeNavbar from "./WormholeNavbar";
+
+function Home({ onEnterHawkins, mode, WormholeNavbarProps }) {
+  const audioRef = useRef(null);
+  const [entered, setEntered] = useState(false);
   const [shake, setShake] = useState(false);
-  const [crackPos, setCrackPos] = useState({ x: 0, y: 0 });
-  const [showNavbar, setShowNavbar] = useState(false);
-  const [entering, setEntering] = useState(false);
 
-  const handleEnter = (e) => {
-    // Mouse position relative to viewport
-    setCrackPos({
-      x: e.clientX,
-      y: e.clientY,
-    });
-
-    const audio = new Audio("/sounds/portal.mp3");
-    audio.volume = 0.5;
-    audio.play();
-
-    setEntering(true);
-    setCrackOpen(true);
-
+  const handleEnter = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+    }
+    setShake(true);
     setTimeout(() => {
-      setShake(true);
-      setTimeout(() => setShake(false), 600);
-    }, 400);
-
-    setTimeout(() => {
-      setShowNavbar(true);
-      setEntering(false);
-      // Optionally call onEnter();
-    }, 3000);
+      setShake(false);
+      setEntered(true);
+      if (onEnterHawkins) {
+        setTimeout(() => {
+          onEnterHawkins();
+        }, 500);
+      }
+    }, 700); // shake duration
   };
 
-  // Reverse transition (exit Upside Down)
-  // const exitUpsideDown = (onBack) => {
-  //   const portal = document.getElementById("portalOverlay");
-  //   if (!portal) return;
-  //   portal.classList.remove("portal-open");
-  //   portal.classList.add("portal-close");
-  //   setPortalActive(true);
-  //   setTimeout(() => {
-  //     onBack();
-  //   }, 900);
-  //   setTimeout(() => {
-  //     portal.classList.remove("portal-close");
-  //     setPortalActive(false);
-  //   }, 2200);
-  // };
-
   return (
-    <div className={`home${entering ? " entering" : ""}`}>
-      {entering && <div className="red-transition" />}
-      <div className="mist" />
-      {showNavbar ? (
-        <>
-          <WormholeNavbar />
-        </>
-      ) : (
-        <div id="gravityLayer">
-          <div id="shakeLayer" className={shake ? "shake" : ""}>
-            <Particles options={particlesConfig} className="particles" />
-            <div className="texture" />
-
-            <div className="content">
-              <h1 className="main-title">STRANGER THINGS</h1>
-              <button className="enter-btn" onClick={handleEnter}>
-                ENTER THE UPSIDE DOWN
-              </button>
-            </div>
-
-            {crackOpen && <Portal x={crackPos.x} y={crackPos.y} />}
-          </div>
+    <div className={`home${shake ? " shake" : ""}`}>
+      {/* Pulsing red glow frame */}
+      {!entered && (
+        <div className="hero-glow-frame">
+          <div className="vertical-seam" />
         </div>
       )}
+      {entered && WormholeNavbarProps && (
+        <WormholeNavbar {...WormholeNavbarProps} />
+      )}
+      {/* Hawkins section effects */}
+      {entered && mode === "hawkins" && (
+        <>
+          <div className="hawkins-fog" />
+          <div className="hawkins-dust">
+            {Array.from({ length: 96 }).map((_, i) => (
+              <div key={i} className="hawkins-dust-particle" />
+            ))}
+          </div>
+          <div className="hawkins-streetlight">
+            <div className="light-pole" />
+            <div className="light-glow" />
+          </div>
+          {/* Animated lightning effect */}
+          <div className="hawkins-lightning">
+            {Array.from({ length: 2 }).map((_, i) => (
+              <svg
+                key={i}
+                className="lightning-svg"
+                width="120"
+                height="320"
+                viewBox="0 0 120 320"
+              >
+                <polyline
+                  className="lightning-bolt"
+                  points="60,0 70,60 50,120 80,180 60,240 90,300"
+                />
+              </svg>
+            ))}
+          </div>
+        </>
+      )}
+      {/* Wormhole section effects */}
+      {entered && mode === "wormhole" && (
+        <>
+          <div className="wormhole-vortex">
+            <div className="wormhole-spiral" />
+            <div className="wormhole-spiral wormhole-spiral2" />
+            <div className="wormhole-gravity" />
+            <div className="wormhole-distort" />
+            {/* Swirling portal ring effect */}
+            <div className="wormhole-portal-ring" />
+            <div className="wormhole-particles">
+              {Array.from({ length: 48 }).map((_, i) => (
+                <div key={i} className="wormhole-particle" />
+              ))}
+            </div>
+          </div>
+          <div className="wormhole-floating-text">
+            <span>TRAVELING THROUGH THE WORMHOLE...</span>
+          </div>
+        </>
+      )}
+      <div className="content">
+        <h1 className="main-title">STRANGER THINGS</h1>
+        <p className="subtitle">Welcome to Hawkins. Enter if you dare...</p>
+        {!entered && (
+          <button className="enter-btn cinematic" onClick={handleEnter}>
+            ENTER
+          </button>
+        )}
+      </div>
+      <audio ref={audioRef} src="/sounds/portal.mp3" preload="auto" />
+      {/* AlphabetWall removed as requested */}
+      {mode === "upside" && <h1 className="upside-text">UPSIDE DOWN</h1>}
+      <div className="mist"></div>
     </div>
   );
 }
