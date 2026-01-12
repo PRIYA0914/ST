@@ -2,11 +2,12 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import "../assets/globalEffects.css";
 import "./HawkinsSection.css";
+// import dustVideo from "../assets/vecteezy_dust-particle-bokeh-abstract-on-black-background_2043153.mov";
+// import HawkinsParticles from "./HawkinsParticles";
 
 const HawkinsSection = () => {
   const bgRef = useRef(null);
   const fgRef = useRef(null);
-  const dustRef = useRef(null);
   const streetlightRef = useRef(null);
 
   const hawkinsArt =
@@ -41,25 +42,6 @@ const HawkinsSection = () => {
 
   // No streetlight flicker for calm Hawkins
 
-  // Dust particles floating
-  useEffect(() => {
-    if (!dustRef.current) return;
-    const dust = dustRef.current.children;
-    for (let i = 0; i < dust.length; i++) {
-      const d = dust[i];
-      gsap.to(d, {
-        y: `-=${10 + Math.random() * 20}`,
-        x: `+=${Math.random() * 40 - 20}`,
-        opacity: 0.7 + Math.random() * 0.3,
-        duration: 6 + Math.random() * 6,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: Math.random() * 4,
-      });
-    }
-  }, []);
-
   // Hover underline glow on text
   const handleTextHover = (e) => {
     e.target.classList.add("text-glow");
@@ -70,16 +52,33 @@ const HawkinsSection = () => {
 
   return (
     <div className="hawkins-root">
-      <div className="hawkins-bg" ref={bgRef}>
+      {/* Removed video background */}
+      {/* Overlay for contrast */}
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          background: "rgba(10,10,20,0.55)",
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        className="hawkins-bg"
+        ref={bgRef}
+        style={{ position: "relative", zIndex: 2 }}
+      >
         <img src={hawkinsArt} alt="Hawkins Art" className="hawkins-art-img" />
       </div>
       {/* No fog for Hawkins */}
-      <div className="hawkins-dust" ref={dustRef}>
-        {[...Array(18)].map((_, i) => (
-          <div key={i} className="hawkins-dust-particle" />
-        ))}
-      </div>
-      <div className="hawkins-fg" ref={fgRef}>
+      <div
+        className="hawkins-fg content-container"
+        ref={fgRef}
+        style={{ position: "relative", zIndex: 3 }}
+      >
         <h1
           className="hawkins-title stagger-fade-up"
           onMouseEnter={handleTextHover}

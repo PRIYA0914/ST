@@ -1,4 +1,12 @@
 
+.content-container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding-top: 100px;
+  color: white;
+}
+
 .App {
   text-align: center;
   min-height: 100vh;
