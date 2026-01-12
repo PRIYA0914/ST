@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: black;
+}
+
+/* Rift background */
+.rift-bg {
+    position: fixed;
+    inset: 0;
+    background: url("portal-bg.jpg") center/cover no-repeat;
+    animation: bgMove 30s linear infinite;
+    transform: scale(1.1);
+}
+
+/* Dark red overlay */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, rgba(255,0,0,0.25), rgba(0,0,0,0.9));
+    z-index: 1;
+}
+
+/* Fog layer */
+.fog {
+    position: fixed;
+    inset: 0;
+    background: url("https://i.imgur.com/cpYQZ6D.png");
+    opacity: 0.15;
+    animation: fogMove 60s linear infinite;
+    z-index: 2;
+}
+
+/* Main content */
+.content {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+/* Title */
+.title {
+    font-size: 5rem;
+    letter-spacing: 6px;
+    text-shadow:
+        0 0 15px red,
+        0 0 40px crimson,
+        0 0 80px darkred;
+    animation: flicker 4s infinite;
+}
+
+/* Subtitle */
+.subtitle {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    color: #ffb3b3;
+}
+
+/* Tagline */
+.tagline {
+    margin: 15px 0 30px;
+    opacity: 0.8;
+    letter-spacing: 2px;
+}
+
+/* Enter button */
+.enter-btn {
+    padding: 14px 40px;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    background: transparent;
+    color: red;
+    border: 2px solid red;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 15px red;
+}
+
+.enter-btn:hover {
+    background: red;
+    color: black;
+    box-shadow: 0 0 40px red;
+}
+
+/* Background movement */
+@keyframes bgMove {
+    0% { background-position: center; }
+    50% { background-position: top; }
+    100% { background-position: center; }
+}
+
+/* Fog animation */
+@keyframes fogMove {
+    from { background-position: 0 0; }
+    to { background-position: 1000px 0; }
+}
+
+/* Flicker effect */
+@keyframes flicker {
+    0%, 19%, 22%, 25%, 54%, 57%, 100% { opacity: 1; }
+    20%, 24%, 55% { opacity: 0.3; }
+}

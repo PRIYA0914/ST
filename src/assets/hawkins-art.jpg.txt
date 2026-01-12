@@ -1,0 +1,4 @@
+// This file is a placeholder for the Stranger Things themed image used in Hawkins section.
+// Please save the provided image as 'hawkins-art.jpg' in the following path:
+// c:\Users\priya\Desktop\ST\ST\src\assets\hawkins-art.jpg
+// The code will reference this image for the Hawkins section background or visual.

@@ -3,16 +3,17 @@ import gsap from "gsap";
 import "../assets/globalEffects.css";
 import "./HawkinsSection.css";
 
-export default function HawkinsSection() {
-  const bgRef = useRef();
-  const fgRef = useRef();
-  // Remove fog for "boringly calm" Hawkins
-  // const fogRef = useRef();
-  const dustRef = useRef();
-  const streetlightRef = useRef();
+const HawkinsSection = () => {
+  const bgRef = useRef(null);
+  const fgRef = useRef(null);
+  const dustRef = useRef(null);
+  const streetlightRef = useRef(null);
 
-  // Cinematic fade-in
+  const hawkinsArt =
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80";
+
   useEffect(() => {
+    // Fade in background and foreground
     gsap.fromTo(
       fgRef.current,
       { opacity: 0 },
@@ -69,7 +70,9 @@ export default function HawkinsSection() {
 
   return (
     <div className="hawkins-root">
-      <div className="hawkins-bg" ref={bgRef} />
+      <div className="hawkins-bg" ref={bgRef}>
+        <img src={hawkinsArt} alt="Hawkins Art" className="hawkins-art-img" />
+      </div>
       {/* No fog for Hawkins */}
       <div className="hawkins-dust" ref={dustRef}>
         {[...Array(18)].map((_, i) => (
@@ -96,4 +99,6 @@ export default function HawkinsSection() {
       </div>
     </div>
   );
-}
+};
+
+export default HawkinsSection;
