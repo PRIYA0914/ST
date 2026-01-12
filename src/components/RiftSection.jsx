@@ -30,19 +30,30 @@ export default function RiftSection() {
     );
   }, []);
 
-  // Crack pulse (vein effect)
+  // Crack pulse (unstable, irregular)
   useEffect(() => {
     if (!crackActive) return;
-    const pulse = gsap.to(".rift-crack", {
-      filter: "drop-shadow(0 0 12px #e50914)",
-      stroke: "#e50914",
-      duration: 0.7,
-      yoyo: true,
-      repeat: -1,
-      ease: "power2.inOut",
-      stagger: 0.1,
-    });
-    return () => pulse.kill();
+    let running = true;
+    function pulse() {
+      if (!running) return;
+      const duration = 0.18 + Math.random() * 0.32;
+      gsap.to(".rift-crack", {
+        filter: "drop-shadow(0 0 18px #e50914)",
+        stroke: "#ff003c",
+        duration,
+        yoyo: true,
+        repeat: 1,
+        ease: "power2.inOut",
+        stagger: 0.07,
+        onComplete: () => {
+          if (running) setTimeout(pulse, 80 + Math.random() * 180);
+        },
+      });
+    }
+    pulse();
+    return () => {
+      running = false;
+    };
   }, [crackActive]);
 
   // Red mist drift
@@ -59,17 +70,26 @@ export default function RiftSection() {
     });
   }, []);
 
-  // Subtle vibration
+  // Stronger, erratic screen shake
   useEffect(() => {
     if (!riftRootRef.current) return;
-    const vibrate = gsap.to(riftRootRef.current, {
-      x: "+=1",
-      yoyo: true,
-      repeat: -1,
-      duration: 0.08,
-      ease: "sine.inOut",
-    });
-    return () => vibrate.kill();
+    let running = true;
+    function shake() {
+      if (!running) return;
+      const x = (Math.random() - 0.5) * 18;
+      const y = (Math.random() - 0.5) * 12;
+      gsap.to(riftRootRef.current, {
+        x,
+        y,
+        duration: 0.09 + Math.random() * 0.09,
+        ease: "power1.inOut",
+        onComplete: shake,
+      });
+    }
+    shake();
+    return () => {
+      running = false;
+    };
   }, []);
 
   // Crack hover/click
@@ -90,56 +110,72 @@ export default function RiftSection() {
       <svg
         className="rift-cracks"
         ref={cracksRef}
-        width="520"
-        height="320"
-        viewBox="0 0 520 320"
+        width="540"
+        height="340"
+        viewBox="0 0 540 340"
       >
+        {/* Main jagged diagonal crack */}
         <path
           className="rift-crack"
-          d="M80 160 Q180 120 260 160 Q340 200 440 160"
-          stroke="#a00"
-          strokeWidth="4"
+          d="M60 300 Q180 120 270 170 Q340 220 480 40"
+          stroke="#e50914"
+          strokeWidth="5"
           fill="none"
-          strokeDasharray="180"
-          strokeDashoffset="180"
+          strokeDasharray="260"
+          strokeDashoffset="260"
+          onMouseEnter={handleCrackHover}
+          onMouseLeave={handleCrackOut}
+          onClick={handleCrackClick}
+        />
+        {/* Branching cracks */}
+        <path
+          className="rift-crack"
+          d="M270 170 Q320 120 400 110"
+          stroke="#e50914"
+          strokeWidth="3"
+          fill="none"
+          strokeDasharray="90"
+          strokeDashoffset="90"
           onMouseEnter={handleCrackHover}
           onMouseLeave={handleCrackOut}
           onClick={handleCrackClick}
         />
         <path
           className="rift-crack"
-          d="M260 160 Q270 100 320 80"
-          stroke="#a00"
+          d="M270 170 Q220 220 120 260"
+          stroke="#e50914"
           strokeWidth="3"
           fill="none"
-          strokeDasharray="80"
-          strokeDashoffset="80"
+          strokeDasharray="110"
+          strokeDashoffset="110"
           onMouseEnter={handleCrackHover}
           onMouseLeave={handleCrackOut}
           onClick={handleCrackClick}
         />
         <path
           className="rift-crack"
-          d="M260 160 Q250 220 200 240"
-          stroke="#a00"
-          strokeWidth="3"
+          d="M320 80 Q350 60 420 30"
+          stroke="#e50914"
+          strokeWidth="2"
           fill="none"
-          strokeDasharray="80"
-          strokeDashoffset="80"
+          strokeDasharray="60"
+          strokeDashoffset="60"
           onMouseEnter={handleCrackHover}
           onMouseLeave={handleCrackOut}
           onClick={handleCrackClick}
         />
       </svg>
       <div className={`rift-shockwave${shockwave ? " active" : ""}`} />
-      <div className="rift-content">
+      <div className="rift-content neon-border floating-content">
         <h2 className="rift-title stagger-fade-up">The Rift</h2>
         <p
           className="rift-desc stagger-fade-up"
           style={{ animationDelay: "0.2s" }}
         >
-          Reality is breaking. Red cracks pulse, mist leaks, and the world
-          vibrates...
+          <span className="rift-highlight">Reality is tearing apart.</span>{" "}
+          Violent cracks rip through space,{" "}
+          <span className="rift-highlight">red light spills out</span>, and the
+          world shudders in protest.
         </p>
       </div>
     </div>

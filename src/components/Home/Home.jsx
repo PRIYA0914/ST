@@ -9,11 +9,15 @@ function Home({ onEnterHawkins, mode, WormholeNavbarProps }) {
   const audioRef = useRef(null);
   const [entered, setEntered] = useState(false);
   const [shake, setShake] = useState(false);
+  const [audioError, setAudioError] = useState(false);
 
   const handleEnter = () => {
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
-      audioRef.current.play();
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => setAudioError(true));
+      }
     }
     setShake(true);
     setTimeout(() => {
@@ -28,12 +32,27 @@ function Home({ onEnterHawkins, mode, WormholeNavbarProps }) {
   };
 
   return (
-    <div className={`home${shake ? " shake" : ""}`}>
-      {/* Pulsing red glow frame */}
+    <div className={`home modern-home${shake ? " shake" : ""}`}>
+      {/* Modern hero section */}
       {!entered && (
-        <div className="hero-glow-frame">
-          <div className="vertical-seam" />
-        </div>
+        <section className="hero-section">
+          <div className="hero-content">
+            <h1 className="main-title">STRANGER THINGS</h1>
+            <p className="subtitle">Welcome to Hawkins. Enter if you dare...</p>
+            <button className="enter-btn cinematic" onClick={handleEnter}>
+              ENTER
+            </button>
+            {audioError && (
+              <div className="audio-error">
+                🔇 Music could not be played automatically. Please check your
+                browser settings.
+              </div>
+            )}
+          </div>
+          <div className="hero-glow-frame">
+            <div className="vertical-seam" />
+          </div>
+        </section>
       )}
       {entered && WormholeNavbarProps && (
         <WormholeNavbar {...WormholeNavbarProps} />
@@ -91,15 +110,7 @@ function Home({ onEnterHawkins, mode, WormholeNavbarProps }) {
           </div>
         </>
       )}
-      <div className="content">
-        <h1 className="main-title">STRANGER THINGS</h1>
-        <p className="subtitle">Welcome to Hawkins. Enter if you dare...</p>
-        {!entered && (
-          <button className="enter-btn cinematic" onClick={handleEnter}>
-            ENTER
-          </button>
-        )}
-      </div>
+      {/* Audio element for music */}
       <audio ref={audioRef} src="/sounds/portal.mp3" preload="auto" />
       {/* AlphabetWall removed as requested */}
       {mode === "upside" && <h1 className="upside-text">UPSIDE DOWN</h1>}

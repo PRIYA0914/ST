@@ -9,8 +9,11 @@ import RiftSection from "./components/RiftSection";
 import Subject011Section from "./components/Subject011Section";
 import GateSection from "./components/GateSection";
 import UpsideDownSection from "./components/UpsideDownSection";
-import PortalNavbar from "./components/Home/PortalNavbar";
+
 import LandingSection from "./components/LandingSection";
+
+
+import Header from "./components/Header";
 
 
 
@@ -43,14 +46,18 @@ function App() {
 
   return (
     <div className={`app ${section}`}>
-      {section !== "landing" && <PortalNavbar onNavigate={handleSectionChange} />}
-      <div style={{ marginTop: section !== "landing" ? 60 : 0 }}>
+      {/* Header with navbar links */}
+      {section !== "landing" && (
+        <Header onNavigate={handleSectionChange} />
+      )}
+      <div>
         {SectionComponent}
       </div>
       {/* Portal transition overlay for wormhole */}
       {section === "wormhole" && isTransitioning && (
         <div className="portal-transition" />
       )}
+      {/* Footer removed as requested */}
     </div>
   );
 }

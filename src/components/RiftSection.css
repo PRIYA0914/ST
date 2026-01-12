@@ -2,82 +2,144 @@
   position: relative;
   min-height: 100vh;
   width: 100vw;
-  background: #120a0e;
+  background: linear-gradient(135deg, #23233a 0%, #18181f 100%);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  animation: riftBgZoom 12s cubic-bezier(0.7,0,0.3,1) infinite alternate;
+  padding: 2.5rem 1rem 2rem 1rem;
+}
+@keyframes riftBgZoom {
+  0% { background-size: 100% 100%; background-position: 0 0; }
+  100% { background-size: 120% 120%; background-position: 30px -30px; }
 }
 .rift-mist {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(ellipse at 60% 60%, rgba(229,9,20,0.18) 0%, transparent 80%);
-  opacity: 0.38;
+  background: radial-gradient(ellipse at 60% 60%, rgba(229,9,20,0.32) 0%, transparent 80%),
+              linear-gradient(120deg, rgba(229,9,20,0.12) 0%, transparent 80%);
+  opacity: 0.55;
   z-index: 2;
   pointer-events: none;
+  filter: blur(2.5px) brightness(1.2);
+  animation: riftMistMove 7s cubic-bezier(0.7,0,0.3,1) infinite alternate;
+}
+@keyframes riftMistMove {
+  0% { transform: translate(0,0) scale(1); }
+  100% { transform: translate(-30px, 20px) scale(1.08); }
 }
 .rift-cracks {
   position: absolute;
-  top: 30%;
+  top: 28%;
   left: 50%;
-  transform: translate(-50%, -20%);
+  transform: translate(-50%, -18%) rotate(-8deg);
   z-index: 10;
-  width: 520px;
-  height: 320px;
+  width: 540px;
+  height: 340px;
   pointer-events: none;
 }
 .rift-crack {
-  stroke: #a00;
-  filter: drop-shadow(0 0 6px #e50914);
-  transition: filter 0.2s, stroke 0.2s;
+  stroke: #e50914;
+  filter: drop-shadow(0 0 12px #e50914) brightness(1.2);
+  transition: filter 0.12s, stroke 0.12s;
   pointer-events: all;
   cursor: pointer;
+  stroke-width: 4;
 }
 .crack-glow {
-  stroke: #ff003c !important;
-  filter: drop-shadow(0 0 18px #e50914) brightness(1.2);
+  stroke: #fff;
+  filter: drop-shadow(0 0 32px #ff003c) brightness(1.5);
 }
 .rift-shockwave {
   position: absolute;
   top: 50%; left: 50%;
-  width: 80px; height: 80px;
+  width: 120px; height: 120px;
   border-radius: 50%;
-  background: radial-gradient(circle, #e50914 0%, transparent 80%);
+  background: radial-gradient(circle, #ff003c 0%, #e50914 60%, transparent 100%);
   opacity: 0;
   transform: translate(-50%, -50%) scale(1);
   pointer-events: none;
   z-index: 20;
-  transition: opacity 0.18s, transform 0.18s;
+  transition: opacity 0.12s, transform 0.12s;
 }
 .rift-shockwave.active {
-  opacity: 0.7;
-  transform: translate(-50%, -50%) scale(2.2);
-  animation: shockwaveFlash 0.35s linear;
+  opacity: 0.85;
+  transform: translate(-50%, -50%) scale(2.7);
+  animation: shockwaveFlash 0.22s cubic-bezier(0.7,0,0.3,1);
 }
 @keyframes shockwaveFlash {
-  0% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(2.2); }
+  0% { opacity: 0.85; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(2.7); }
 }
 .rift-content {
   position: relative;
   z-index: 30;
   margin-top: 220px;
   text-align: center;
+  background: rgba(30, 30, 47, 0.92);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(229,9,20,0.18);
+  padding: 2.5rem 2.2rem 2.2rem 2.2rem;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: floatRift 3.2s ease-in-out infinite alternate;
 }
+
+@keyframes floatRift {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+
 .rift-title {
-  font-size: 2.8rem;
+  font-size: 3.1rem;
   color: #fff;
-  text-shadow: 0 0 16px #e50914, 0 0 2px #fff;
+  text-shadow: 0 0 32px #e50914, 0 0 2px #fff;
   margin-bottom: 1.2rem;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.13em;
   -webkit-user-select: none;
   user-select: none;
+  text-transform: uppercase;
+  font-family: 'Bebas Neue', 'Oswald', 'Arial Black', Arial, sans-serif;
+  animation: riftTitlePulse 2.2s infinite alternate;
+}
+@keyframes riftTitlePulse {
+  0% { text-shadow: 0 0 32px #e50914, 0 0 2px #fff; }
+  100% { text-shadow: 0 0 48px #ff003c, 0 0 8px #fff; }
+}
+
+.rift-desc {
+  font-size: 1.25rem;
+  color: #ffdada;
+  text-shadow: 0 0 16px #e50914, 0 0 2px #fff;
+  max-width: 480px;
+  margin: 0 auto;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.rift-highlight {
+  color: #ff003c;
+  font-weight: 700;
+  text-shadow: 0 0 8px #e50914;
+}
+.rift-title {
+  font-size: 3.1rem;
+  color: #fff;
+  text-shadow: 0 0 32px #e50914, 0 0 2px #fff;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.13em;
+  -webkit-user-select: none;
+  user-select: none;
+  text-transform: uppercase;
 }
 .rift-desc {
-  font-size: 1.2rem;
-  color: #f8dada;
-  text-shadow: 0 0 8px #e50914;
-  max-width: 420px;
+  font-size: 1.25rem;
+  color: #ffdada;
+  text-shadow: 0 0 16px #e50914, 0 0 2px #fff;
+  max-width: 480px;
   margin: 0 auto;
+  font-weight: 500;
 }

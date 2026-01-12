@@ -1,7 +1,7 @@
 .landing-root {
   position: fixed;
   inset: 0;
-  background: var(--color-bg-black);
+  background: linear-gradient(135deg, #23233a 0%, #18181f 100%);
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -37,12 +37,13 @@
   letter-spacing: 0.12em;
   text-align: center;
   color: #fff;
-  text-shadow: 0 0 16px #e50914, 0 0 2px #fff;
-  margin-bottom: 1.6rem;
+  text-shadow: 0 0 24px #e50914, 0 0 4px #fff;
+  margin-bottom: 2.2rem;
   line-height: 1.1;
   -webkit-user-select: none;
   user-select: none;
   position: relative;
+  font-family: 'Bebas Neue', 'Oswald', 'Arial Black', Arial, sans-serif;
 }
 .landing-title-stranger span,
 .landing-title-things span {

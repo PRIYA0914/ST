@@ -1,11 +1,16 @@
 /* GLOBAL ANIMATION VARIABLES & CLASSES */
+/* Modernized color palette and effects */
 :root {
-  --color-bg-black: #0a0a0a;
+  --color-bg-black: #18181f;
+  --color-bg-dark: #23233a;
   --color-red-glow: #e50914;
   --color-neon-border: #ff003c;
   --color-fog: rgba(255,0,60,0.08);
   --color-fog-blue: rgba(80,120,180,0.12);
-  --color-upside: #2a2d36;
+  --color-upside: #23233a;
+  --color-accent: #7f9cf5;
+  --color-btn-bg: linear-gradient(90deg, #e50914 0%, #ff003c 100%);
+  --color-btn-hover: linear-gradient(90deg, #ff003c 0%, #e50914 100%);
   --glow-blur: 0 0 32px var(--color-red-glow), 0 0 8px var(--color-red-glow);
   --glow-breath: 0 0 16px var(--color-red-glow), 0 0 4px var(--color-red-glow);
   --transition-slow: 0.8s cubic-bezier(0.77,0,0.18,1);
@@ -13,10 +18,11 @@
   --ease-cinematic: cubic-bezier(0.77,0,0.18,1);
 }
 
+
 body {
   background: var(--color-bg-black);
-  color: #fff;
-  font-family: 'Bebas Neue', 'Oswald', 'Arial Black', Arial, sans-serif;
+  color: #f5f6fa;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
 }

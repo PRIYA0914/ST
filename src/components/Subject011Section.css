@@ -2,14 +2,15 @@
   position: relative;
   min-height: 100vh;
   width: 100vw;
-  background: #181c22;
+  background: linear-gradient(135deg, #23233a 0%, #18181f 100%);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  filter: brightness(0.98) contrast(1.08);
+  filter: brightness(1.02) contrast(1.12);
   transition: filter 0.3s;
+  padding: 2.5rem 1rem 2rem 1rem;
 }
 .subject011-root.crt-on {
   filter: brightness(1.08) contrast(1.18) saturate(1.1);

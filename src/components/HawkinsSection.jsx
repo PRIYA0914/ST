@@ -6,7 +6,8 @@ import "./HawkinsSection.css";
 export default function HawkinsSection() {
   const bgRef = useRef();
   const fgRef = useRef();
-  const fogRef = useRef();
+  // Remove fog for "boringly calm" Hawkins
+  // const fogRef = useRef();
   const dustRef = useRef();
   const streetlightRef = useRef();
 
@@ -37,21 +38,7 @@ export default function HawkinsSection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Streetlight flicker
-  useEffect(() => {
-    let flickerTimeout;
-    function randomFlicker() {
-      if (!streetlightRef.current) return;
-      streetlightRef.current.classList.add("flicker");
-      setTimeout(() => {
-        if (streetlightRef.current)
-          streetlightRef.current.classList.remove("flicker");
-        flickerTimeout = setTimeout(randomFlicker, 4000 + Math.random() * 9000);
-      }, 180);
-    }
-    flickerTimeout = setTimeout(randomFlicker, 3000);
-    return () => clearTimeout(flickerTimeout);
-  }, []);
+  // No streetlight flicker for calm Hawkins
 
   // Dust particles floating
   useEffect(() => {
@@ -83,7 +70,7 @@ export default function HawkinsSection() {
   return (
     <div className="hawkins-root">
       <div className="hawkins-bg" ref={bgRef} />
-      <div className="hawkins-fog fog-bg" ref={fogRef} />
+      {/* No fog for Hawkins */}
       <div className="hawkins-dust" ref={dustRef}>
         {[...Array(18)].map((_, i) => (
           <div key={i} className="hawkins-dust-particle" />
